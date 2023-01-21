@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultitenantBlazorApp.Server", "MultitenantBlazorApp\Server\MultitenantBlazorApp.Server.csproj", "{68CB37A9-7B9C-44EC-B613-626920C084F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultitenantBlazorApp.Server", "MultitenantBlazorApp\Server\MultitenantBlazorApp.Server.csproj", "{68CB37A9-7B9C-44EC-B613-626920C084F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultitenantBlazorApp.Client", "MultitenantBlazorApp\Client\MultitenantBlazorApp.Client.csproj", "{BC1C1E8D-22E5-4300-A7AD-6E5DEEF7F1A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultitenantBlazorApp.Client", "MultitenantBlazorApp\Client\MultitenantBlazorApp.Client.csproj", "{BC1C1E8D-22E5-4300-A7AD-6E5DEEF7F1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultitenantBlazorApp.Shared", "MultitenantBlazorApp\Shared\MultitenantBlazorApp.Shared.csproj", "{1C1DCBC6-26A0-4F80-93CF-B86C67CA5BB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultitenantBlazorApp.Shared", "MultitenantBlazorApp\Shared\MultitenantBlazorApp.Shared.csproj", "{1C1DCBC6-26A0-4F80-93CF-B86C67CA5BB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

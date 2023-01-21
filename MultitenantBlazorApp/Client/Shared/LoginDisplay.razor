@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options;
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+
+<AuthorizeView>
+  <Authorized>
+    <a href="authentication/profile">Hello, @context.User.Identity?.Name ! You're on tenant: @context.User.FindFirst("Tenant")?.Value'</a>
+    <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+  </Authorized>
+  <NotAuthorized>
+    <a href="authentication/register">Register</a>
+    <a href="authentication/login">Log in</a>
+  </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+  private void BeginSignOut(MouseEventArgs args)
+  {
+    Navigation.NavigateToLogout(Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath);
+  }
+}
