@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultitenantBlazorApp.Shared;
 
 namespace MultitenantBlazorApp.Server.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("[controller]")]
   public class WeatherForecastController : ControllerBase

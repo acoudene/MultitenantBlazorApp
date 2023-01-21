@@ -1,21 +1,25 @@
-using MultitenantBlazorApp.Client.Tenant;
-using Microsoft.AspNetCore.Components.Authorization;
+// Changelogs Date  | Author                | Description
+// 2022-11-22       | Anthony Coudène (ACE) | Creation
+
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MultitenantBlazorApp.Client;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using MultitenantBlazorApp.Client.Tenant;
 
 var host = default(WebAssemblyHost);
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services
+    .AddHttpClient("Authenticated", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Authenticated"));
+
 
 builder.Services.AddScoped<IStatefulTenantIdProvider, ByNavSubdomainTenantIdProvider>();
-
-//builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<AuthenticationStateProvider>());
 
 builder.Services
     .AddOidcAuthentication(options =>
@@ -51,8 +55,8 @@ builder.Services
       if (string.IsNullOrWhiteSpace(roleClaimTemplateConfig)) throw new InvalidOperationException($"Missing {roleClaimTemplateConfigKey} configuration for tenant: {tenantId}");
 
       options.UserOptions.RoleClaim = roleClaimTemplateConfig.Replace($"${{{clientIdKey}}}", clientId);
-    });
-    //.AddAccountClaimsPrincipalFactory<ApplicationAuthenticationState, LegacyClaimsPrincipalFactory>();
+    })
+    /*.AddAccountClaimsPrincipalFactory<MyClaimsPrincipalFactory>()*/;
 
 builder.Services.AddApiAuthorization();
 

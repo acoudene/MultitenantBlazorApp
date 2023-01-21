@@ -1,7 +1,5 @@
 ﻿// Changelogs Date  | Author                | Description
-// 2022-06-08       | Anthony Coudène (ACE) | MN-915 Change client architecture to better manage 
-// 2022-07-26       | Anthony Coudène (ACE) | MN-221 Integrate Oidc/OAuth2 protocol as unique authentication mode
-// 2022-11-22       | Anthony Coudène (ACE) | MN-1198 Full OIDC/Teams Integration
+// 2022-11-22       | Anthony Coudène (ACE) | Creation
 
 using Microsoft.AspNetCore.Components;
 

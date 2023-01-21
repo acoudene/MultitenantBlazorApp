@@ -1,5 +1,5 @@
 ﻿// Changelogs Date  | Author                | Description
-// 2022-11-22       | Anthony Coudène (ACE) | MN-1198 Full OIDC/Teams Integration
+// 2022-11-22       | Anthony Coudène (ACE) | Creation
 
 using MultitenantBlazorApp.Client.Helpers;
 using Microsoft.AspNetCore.Components;

@@ -1,3 +1,6 @@
+// Changelogs Date  | Author                | Description
+// 2022-11-22       | Anthony Coudène (ACE) | Creation
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MultitenantBlazorApp.Server;
 

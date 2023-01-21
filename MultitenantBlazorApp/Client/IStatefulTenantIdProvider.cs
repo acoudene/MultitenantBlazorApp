@@ -1,5 +1,5 @@
 ﻿// Changelogs Date  | Author                | Description
-// 2022-11-22       | Anthony Coudène (ACE) | MN-1198-Creation
+// 2022-11-22       | Anthony Coudène (ACE) | Creation
 
 namespace MultitenantBlazorApp.Client.Tenant
 {
