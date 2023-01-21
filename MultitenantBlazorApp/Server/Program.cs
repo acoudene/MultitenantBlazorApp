@@ -2,6 +2,7 @@
 // 2022-11-22       | Anthony Coudène (ACE) | Creation
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using MultitenantBlazorApp.Server;
 
 var builder = WebApplication.CreateBuilder(args);

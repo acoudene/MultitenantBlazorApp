@@ -10,14 +10,10 @@ namespace MultitenantBlazorApp.Server
 {
   public static class AuthenticationBuilderExtensions
   {
-    public static AuthenticationBuilder AddByTenantJwtBearer(this AuthenticationBuilder builder, string authenticationScheme, Action<JwtBearerOptions>? action = null)
+    public static AuthenticationBuilder AddByTenantJwtBearer(this AuthenticationBuilder builder, string authenticationScheme, Action<JwtBearerOptions>? configureOptions = null)
     {
       builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<JwtBearerOptions>, JwtBearerPostConfigureOptions>());
-
-      if (action != null)
-        return builder.AddScheme<JwtBearerOptions, ByTenantJwtBearerHandler>(authenticationScheme, null, action);
-
-      return builder.AddScheme<JwtBearerOptions, ByTenantJwtBearerHandler>(authenticationScheme, null, _ => { });
+      return builder.AddScheme<JwtBearerOptions, ByTenantJwtBearerHandler>(authenticationScheme, displayName: null, configureOptions);
     }
   }
 }
