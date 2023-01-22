@@ -43,6 +43,7 @@ namespace MultitenantBlazorApp.Server.Controllers
     public async Task<ActionResult> CreateUserAsync()
     {
       if (User == null) throw new InvalidOperationException("Missing principal");
+      
       var newPrincipal = await _claimsTransformation.TransformAsync(User);
       if (newPrincipal == null) throw new InvalidOperationException("No principal after transformation");
       

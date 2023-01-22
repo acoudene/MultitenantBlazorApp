@@ -1,13 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.Extensions.Options;
+@using MultitenantBlazorApp.Client.Tenant;
 
 @inject NavigationManager Navigation
 @inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@inject IStatefulTenantIdProvider TenantIdProvider
 
 <AuthorizeView>
   <Authorized>
-    <a href="authentication/profile">Hello, @context.User.Identity?.Name ! You're on tenant: @context.User.FindFirst("Tenant")?.Value'</a>
+    <a href="authentication/profile">Hello, @context.User.Identity?.Name ! You're on tenant: @TenantIdProvider.GetCurrentTenantId()'</a>
     <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
   </Authorized>
   <NotAuthorized>

@@ -56,7 +56,7 @@ builder.Services
 
       options.UserOptions.RoleClaim = roleClaimTemplateConfig.Replace($"${{{clientIdKey}}}", clientId);
     })
-    /*.AddAccountClaimsPrincipalFactory<MyClaimsPrincipalFactory>()*/;
+    .AddAccountClaimsPrincipalFactory<MyClaimsPrincipalFactory>();
 
 builder.Services.AddApiAuthorization();
 
