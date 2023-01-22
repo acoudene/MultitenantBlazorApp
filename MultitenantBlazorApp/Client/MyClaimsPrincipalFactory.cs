@@ -53,18 +53,18 @@ namespace MultitenantBlazorApp.Client
     protected async Task<string?> CreateAndUpdateUserAsync(CancellationToken cancellationToken)
     {
       // Call API (don't use using var to let factory manage http pool
-      //var httpClient = _httpClientFactory.CreateClient("Authenticated");
+      var httpClient = _httpClientFactory.CreateClient("Authenticated");
 
-      //var request = new HttpRequestMessage(HttpMethod.Post, "SsoLegacy/CreateUser");
+      var request = new HttpRequestMessage(HttpMethod.Post, "User/CreateUser");
 
-      //HttpResponseMessage response = await httpClient.SendObjectAsync(request, cancellationToken);
+      HttpResponseMessage? response = await httpClient.SendObjectAsync(request, cancellationToken);
+      if (response == null) throw new InvalidOperationException("No http response");
 
-      //string? jsonResponse = await response?.Content?.ReadAsStringAsync(cancellationToken);
-      //if (string.IsNullOrWhiteSpace(jsonResponse)) throw new InvalidOperationException($"No content in the response for {CreateAndUpdateUserAsync}");
+      string jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
+      if (string.IsNullOrWhiteSpace(jsonResponse)) throw new InvalidOperationException($"No content in the response for {CreateAndUpdateUserAsync}");
 
-      //dynamic? data = JsonConvert.DeserializeObject(jsonResponse);
-      //return data?.token;
-      return null;
+      dynamic? data = JsonConvert.DeserializeObject(jsonResponse);
+      return data?.token;
     }
 
     //private void MapArrayClaimsToMultipleSeparateClaims(RemoteUserAccount account, ClaimsIdentity claimsIdentity)

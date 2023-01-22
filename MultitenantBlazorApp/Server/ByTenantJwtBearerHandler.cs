@@ -106,7 +106,7 @@ namespace MultitenantBlazorApp.Server
 
       Options.TokenValidationParameters.RoleClaimType = roleClaimTypeRaw.Replace($"${{{clientIdKey}}}", clientId);
       Options.TokenValidationParameters.NameClaimType = nameClaimType; // Fait sens ici car côté serveur, on utiliserait le nom pour la traçabilité
-      Options.TokenValidationParameters.ValidAudience= audience;
+      Options.TokenValidationParameters.ValidAudience = audience;
       Options.TokenValidationParameters.ValidateIssuer = true;
 
       var cacheKey = $"DynamicAuthorityJwtBearerHandlerConfigurationResolver__{authority}";
@@ -232,8 +232,8 @@ namespace MultitenantBlazorApp.Server
             {
               tokenValidatedContext.Properties.StoreTokens(new[]
               {
-                                new AuthenticationToken { Name = "access_token", Value = token }
-                            });
+                new AuthenticationToken { Name = "access_token", Value = token }
+              });
             }
 
             tokenValidatedContext.Success();

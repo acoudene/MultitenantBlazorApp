@@ -1,6 +1,7 @@
 // Changelogs Date  | Author                | Description
 // 2022-11-22       | Anthony Coudène (ACE) | Creation
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using MultitenantBlazorApp.Server;
@@ -17,6 +18,8 @@ builder.Services.AddTransient<IStatelessTenantIdProvider, ByReqSubDomainTenantId
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddByTenantJwtBearer(JwtBearerDefaults.AuthenticationScheme);
+
+//builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
 
 var app = builder.Build();
 
