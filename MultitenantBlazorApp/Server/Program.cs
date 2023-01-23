@@ -13,12 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 // Tenant by subdomain
 builder.Services.AddTransient<IStatefulTenantIdProvider, ByReqSubDomainTenantIdProvider>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddByTenantJwtBearer(JwtBearerDefaults.AuthenticationScheme);
+
+builder.Services.AddScoped<UserValidationJwtBearerEvents>();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();

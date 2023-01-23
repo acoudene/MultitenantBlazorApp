@@ -61,7 +61,7 @@ namespace MultitenantBlazorApp.Server
       if (Context == null)
         return null;
 
-      // Try several method to get tenant id, first from request, then from claims
+      // Get tenant id or default value
       var tenantId = _tenantIdProvider.GetCurrentTenantId();      
       if (string.IsNullOrWhiteSpace(tenantId))
         tenantId = "default";
@@ -84,7 +84,7 @@ namespace MultitenantBlazorApp.Server
       var roleClaimTemplateConfigKey = $"{tenantConfigKey}:{roleClaimTemplateKey}";
 
       // Useful to trigger user validation on legacy server
-      //options.EventsType = typeof(UserValidationJwtBearerEvents);
+      Options.EventsType = typeof(UserValidationJwtBearerEvents);
 
       string? authority = _configuration[authorityConfigKey];
       if (string.IsNullOrWhiteSpace(authority)) throw new InvalidOperationException($"Missing {authorityConfigKey} configuration for tenant: {tenantId}");
@@ -198,7 +198,7 @@ namespace MultitenantBlazorApp.Server
             }
             catch (Exception ex)
             {
-              //Logger.TokenValidationFailed(ex);
+              Logger.TokenValidationFailed(ex);
 
               // Refresh the configuration for exceptions that may be caused by key rollovers. The user can also request a refresh in the event.
               if (Options.RefreshOnIssuerKeyNotFound && Options.ConfigurationManager != null
@@ -215,7 +215,7 @@ namespace MultitenantBlazorApp.Server
               continue;
             }
 
-            //Logger.TokenValidationSucceeded();
+            Logger.TokenValidationSucceeded();
 
             var tokenValidatedContext = new TokenValidatedContext(Context, Scheme, Options)
             {
@@ -265,7 +265,7 @@ namespace MultitenantBlazorApp.Server
       }
       catch (Exception ex)
       {
-        //Logger.ErrorProcessingMessage(ex);
+        Logger.ErrorProcessingMessage(ex);
 
         var authenticationFailedContext = new AuthenticationFailedContext(Context, Scheme, Options)
         {
