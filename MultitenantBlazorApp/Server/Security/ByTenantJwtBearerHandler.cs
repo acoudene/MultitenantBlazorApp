@@ -56,11 +56,35 @@ namespace MultitenantBlazorApp.Server
       _tenantIdProvider = tenantIdProvider ?? throw new ArgumentNullException(nameof(tenantIdProvider));
     }
 
-    protected async Task<OpenIdConnectConfiguration?> ResolveCurrentOpenIdConfigurationAsync()
+    /// <summary>
+    /// Resolve configuration from authority
+    /// </summary>
+    /// <param name="authority"></param>
+    /// <returns></returns>
+    protected async Task<OpenIdConnectConfiguration?> GetOpenIdConfigurationAsync(string authority)
     {
       if (Context == null)
         return null;
 
+      var cacheKey = $"{nameof(ByTenantJwtBearerHandler)}_{authority}";
+      var ret = await _memoryCache.GetOrCreateAsync(cacheKey, async cacheEntry =>
+      {
+        cacheEntry.AbsoluteExpirationRelativeToNow = _cacheDelayInSec;
+        var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{authority}/.well-known/openid-configuration", new OpenIdConnectConfigurationRetriever());
+        var authorityConfiguration = await configurationManager.GetConfigurationAsync(Context!.RequestAborted);
+        return authorityConfiguration;
+      });
+
+      return ret;
+    }
+
+    /// <summary>
+    /// Add options from tenant
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    protected JwtBearerOptions AddTenantOptions()
+    {
       // Get tenant id or default value
       var tenantId = _tenantIdProvider.GetCurrentTenantId();      
       if (string.IsNullOrWhiteSpace(tenantId))
@@ -109,20 +133,12 @@ namespace MultitenantBlazorApp.Server
       Options.RequireHttpsMetadata = false;
 
       Options.TokenValidationParameters.RoleClaimType = roleClaimTypeRaw.Replace($"${{{clientIdKey}}}", clientId);
-      Options.TokenValidationParameters.NameClaimType = nameClaimType; // Fait sens ici car côté serveur, on utiliserait le nom pour la traçabilité
+      Options.TokenValidationParameters.NameClaimType = nameClaimType; 
       Options.TokenValidationParameters.ValidAudience = audience;
+      Options.TokenValidationParameters.ValidAudiences = new List<string>() { audience };
       Options.TokenValidationParameters.ValidateIssuer = true;
-
-      var cacheKey = $"{nameof(ByTenantJwtBearerHandler)}_{authority}";
-      var ret = await _memoryCache.GetOrCreateAsync(cacheKey, async cacheEntry =>
-      {
-        cacheEntry.AbsoluteExpirationRelativeToNow = _cacheDelayInSec;
-        var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{authority}/.well-known/openid-configuration", new OpenIdConnectConfigurationRetriever());
-        var authorityConfiguration = await configurationManager.GetConfigurationAsync(Context!.RequestAborted);
-        return authorityConfiguration;
-      });
-
-      return ret;
+      
+      return Options;
     }
 
 
@@ -138,6 +154,9 @@ namespace MultitenantBlazorApp.Server
       string? token;
       try
       {
+        // Add specific options from tenant
+        AddTenantOptions();
+
         // Give application opportunity to find from a different location, adjust, or reject token
         var messageReceivedContext = new MessageReceivedContext(Context, Scheme, Options);
 
@@ -173,7 +192,12 @@ namespace MultitenantBlazorApp.Server
           }
         }
 
-        var currentConfiguration = await ResolveCurrentOpenIdConfigurationAsync();
+        if (Options.Authority == null)
+        {
+          return AuthenticateResult.NoResult();
+        }
+
+        var currentConfiguration = await GetOpenIdConfigurationAsync(Options.Authority);
         var validationParameters = Options.TokenValidationParameters.Clone();
         if (currentConfiguration != null)
         {
