@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MultitenantBlazorApp.Client.Tenant;
 using MultitenantBlazorApp.Shared;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,13 +20,13 @@ namespace MultitenantBlazorApp.Server.Controllers
     private readonly ILogger<UserController> _logger;
     private readonly IClaimsTransformation _claimsTransformation;
     private readonly IConfiguration _configuration;
-    private readonly IStatelessTenantIdProvider _tenantIdProvider;
+    private readonly IStatefulTenantIdProvider _tenantIdProvider;
 
     public UserController(
       ILogger<UserController> logger, 
       IClaimsTransformation claimsTransformation,
       IConfiguration configuration,
-      IStatelessTenantIdProvider tenantIdProvider)
+      IStatefulTenantIdProvider tenantIdProvider)
     {
       Guard.IsNotNull(logger);
       Guard.IsNotNull(claimsTransformation);

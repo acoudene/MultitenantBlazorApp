@@ -3,6 +3,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Authentication;
+using MultitenantBlazorApp.Client.Tenant;
 using System.Security.Claims;
 
 namespace MultitenantBlazorApp.Server
@@ -10,11 +11,11 @@ namespace MultitenantBlazorApp.Server
   public class MyClaimsTransformation : IClaimsTransformation
   {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IStatelessTenantIdProvider _tenantIdProvider;
+    private readonly IStatefulTenantIdProvider _tenantIdProvider;
 
     public MyClaimsTransformation(
       IHttpContextAccessor httpContextAccessor,
-      IStatelessTenantIdProvider tenantIdProvider)
+      IStatefulTenantIdProvider tenantIdProvider)
     {
       Guard.IsNotNull(httpContextAccessor);
       Guard.IsNotNull(tenantIdProvider);
@@ -28,14 +29,12 @@ namespace MultitenantBlazorApp.Server
       if (principal == null) throw new ArgumentNullException(nameof(principal));
       if (principal.Identity is not ClaimsIdentity) throw new InvalidOperationException("ClaimsPrincipal is not a ClaimsIdentity");
 
-      string? tenantId = "default";
-
-      var request = _httpContextAccessor.HttpContext?.Request;
-      if (request != null)
-        tenantId = _tenantIdProvider.GetTenantId(request);
+      var tenantId = _tenantIdProvider.GetCurrentTenantId();
+      if (string.IsNullOrWhiteSpace(tenantId))
+        tenantId = "default";
 
       // To fill
-      
+
 
       return Task.FromResult(principal);
     }

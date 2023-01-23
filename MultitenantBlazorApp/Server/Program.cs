@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
+using MultitenantBlazorApp.Client.Tenant;
 using MultitenantBlazorApp.Server;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 // Tenant by subdomain
-builder.Services.AddTransient<IStatelessTenantIdProvider, ByReqSubDomainTenantIdProvider>();
+builder.Services.AddTransient<IStatefulTenantIdProvider, ByReqSubDomainTenantIdProvider>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

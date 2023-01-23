@@ -4,47 +4,55 @@
 using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Http.Extensions;
 using MultitenantBlazorApp.Client.Helpers;
-using System.Security.Claims;
+using MultitenantBlazorApp.Client.Tenant;
 
 namespace MultitenantBlazorApp.Server
 {
   /// <summary>
   /// Stateless provider to manager tenant id by query string
   /// </summary>
-  public class ByReqQueryStringTenantIdProvider : IStatelessTenantIdProvider
+  public class ByReqQueryStringTenantIdProvider : IStatefulTenantIdProvider
   {
     private const string TenantIdKey = "Tenant";
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
-    /// Tenant id from request
+    /// Get tenant key
     /// </summary>
-    /// <param name="request"></param>
     /// <returns></returns>
-    public string? GetTenantId(HttpRequest request)
+    public string GetTenantIdKey() => TenantIdKey;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="authenticationState"></param>
+    /// <param name="claimsProvider"></param>
+    public ByReqQueryStringTenantIdProvider(IHttpContextAccessor httpContextAccessor)
     {
-      Guard.IsNotNull(request);
+      Guard.IsNotNull(httpContextAccessor);
+
+      _httpContextAccessor = httpContextAccessor;
+    }
+
+    /// <summary>
+    /// Get tenant id from current state
+    /// </summary>
+    /// <returns></returns>
+    public string? GetCurrentTenantId()
+    {
+      var request = _httpContextAccessor.HttpContext?.Request;
+      if (request == null)
+        return default;
 
       var url = request.GetDisplayUrl();
       if (string.IsNullOrEmpty(url))
         ThrowHelper.ThrowInvalidOperationException("No display url for request");
 
       var uri = new Uri(url);
-      uri.TryGetQueryString<string>(TenantIdKey, out var tenantId);
+      if (!uri.TryGetQueryString<string>(TenantIdKey, out var tenantId))
+        return default;
 
       return tenantId;
-    }
-
-    /// <summary>
-    /// Tenant id from claims
-    /// </summary>
-    /// <param name="claimsPrincipal"></param>
-    /// <returns></returns>
-    public string? GetTenantId(ClaimsPrincipal claimsPrincipal)
-    {
-      Guard.IsNotNull(claimsPrincipal);
-
-      var identity = claimsPrincipal.Identity as ClaimsIdentity;
-      return identity?.FindFirst(TenantIdKey)?.Value;
     }
   }
 }

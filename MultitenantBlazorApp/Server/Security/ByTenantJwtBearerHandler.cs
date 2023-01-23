@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using MultitenantBlazorApp.Client.Tenant;
 using System.Globalization;
 using System.Security.Claims;
 using System.Text;
@@ -24,7 +25,7 @@ namespace MultitenantBlazorApp.Server
   {
     private readonly IMemoryCache _memoryCache;
     private readonly IConfiguration _configuration;
-    private readonly IStatelessTenantIdProvider _tenantIdProvider;
+    private readonly IStatefulTenantIdProvider _tenantIdProvider;
     private TimeSpan _cacheDelayInSec = TimeSpan.FromSeconds(120);
 
     /// <summary>
@@ -43,7 +44,7 @@ namespace MultitenantBlazorApp.Server
         ILoggerFactory logger, UrlEncoder encoder,
         ISystemClock clock,
         IConfiguration configuration,
-        IStatelessTenantIdProvider tenantIdProvider)
+        IStatefulTenantIdProvider tenantIdProvider)
         : base(options, logger, encoder, clock)
     {
       Guard.IsNotNull(memoryCache);
@@ -61,10 +62,8 @@ namespace MultitenantBlazorApp.Server
         return null;
 
       // Try several method to get tenant id, first from request, then from claims
-      var tenantId = _tenantIdProvider.GetTenantId(Request);
-      if (string.IsNullOrEmpty(tenantId) && Context?.User != null)
-        tenantId = _tenantIdProvider.GetTenantId(Context.User);
-      if (string.IsNullOrEmpty(tenantId))
+      var tenantId = _tenantIdProvider.GetCurrentTenantId();      
+      if (string.IsNullOrWhiteSpace(tenantId))
         tenantId = "default";
 
       // Get OIDC configuration from a givent tenant id
