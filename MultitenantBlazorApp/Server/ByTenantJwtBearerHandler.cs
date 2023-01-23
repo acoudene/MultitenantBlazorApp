@@ -25,7 +25,7 @@ namespace MultitenantBlazorApp.Server
     private readonly IMemoryCache _memoryCache;
     private readonly IConfiguration _configuration;
     private readonly IStatelessTenantIdProvider _tenantIdProvider;
-    private readonly TimeSpan _cacheDelay = TimeSpan.FromHours(1);
+    private TimeSpan _cacheDelayInSec = TimeSpan.FromSeconds(120);
 
     /// <summary>
     /// Constructor
@@ -69,6 +69,7 @@ namespace MultitenantBlazorApp.Server
 
       // Get OIDC configuration from a givent tenant id
       const string oidcKey = "Oidc";
+      const string cacheDelayInSec = "CacheDelayInSec";
       const string authorityKey = "Authority";
       const string clientIdKey = "ClientId";
       const string audienceKey = "Audience";
@@ -76,6 +77,7 @@ namespace MultitenantBlazorApp.Server
       const string roleClaimTemplateKey = "RoleClaimTemplate";
 
       var tenantConfigKey = $"{oidcKey}:{tenantId}";
+      var cacheDelayInSecConfigKey = $"{oidcKey}:{cacheDelayInSec}";
       var authorityConfigKey = $"{tenantConfigKey}:{authorityKey}";
       var clientIdConfigKey = $"{tenantConfigKey}:{clientIdKey}";
       var audienceConfigKey = $"{tenantConfigKey}:{audienceKey}";
@@ -100,6 +102,9 @@ namespace MultitenantBlazorApp.Server
       string? nameClaimType = _configuration[nameClaimTypeConfigKey];
       if (string.IsNullOrWhiteSpace(nameClaimType)) throw new InvalidOperationException($"Missing {nameClaimTypeConfigKey} configuration for tenant: {tenantId}");
 
+      if (Int32.TryParse(_configuration[cacheDelayInSecConfigKey], out int cacheDelayInMs))
+        _cacheDelayInSec = TimeSpan.FromSeconds(cacheDelayInMs);
+
       Options.Authority = authority;
       Options.Audience = audience;
       Options.RequireHttpsMetadata = false;
@@ -109,10 +114,10 @@ namespace MultitenantBlazorApp.Server
       Options.TokenValidationParameters.ValidAudience = audience;
       Options.TokenValidationParameters.ValidateIssuer = true;
 
-      var cacheKey = $"DynamicAuthorityJwtBearerHandlerConfigurationResolver__{authority}";
+      var cacheKey = $"{nameof(ByTenantJwtBearerHandler)}_{authority}";
       var ret = await _memoryCache.GetOrCreateAsync(cacheKey, async cacheEntry =>
       {
-        cacheEntry.AbsoluteExpirationRelativeToNow = _cacheDelay;
+        cacheEntry.AbsoluteExpirationRelativeToNow = _cacheDelayInSec;
         var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{authority}/.well-known/openid-configuration", new OpenIdConnectConfigurationRetriever());
         var authorityConfiguration = await configurationManager.GetConfigurationAsync(Context!.RequestAborted);
         return authorityConfiguration;
