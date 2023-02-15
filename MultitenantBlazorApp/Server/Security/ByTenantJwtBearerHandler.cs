@@ -70,6 +70,8 @@ namespace MultitenantBlazorApp.Server
       var ret = await _memoryCache.GetOrCreateAsync(cacheKey, async cacheEntry =>
       {
         cacheEntry.AbsoluteExpirationRelativeToNow = _cacheDelayInSec;
+        // For debug purpose only:        
+        //var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{authority}/.well-known/openid-configuration", new OpenIdConnectConfigurationRetriever(), new HttpDocumentRetriever() { RequireHttps = false });
         var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{authority}/.well-known/openid-configuration", new OpenIdConnectConfigurationRetriever());
         var authorityConfiguration = await configurationManager.GetConfigurationAsync(Context!.RequestAborted);
         return authorityConfiguration;
@@ -129,7 +131,7 @@ namespace MultitenantBlazorApp.Server
         _cacheDelayInSec = TimeSpan.FromSeconds(cacheDelayInMs);
 
       Options.Authority = authority;
-      Options.Audience = audience;
+      Options.Audience = audience;      
       Options.RequireHttpsMetadata = false;
 
       Options.TokenValidationParameters.RoleClaimType = roleClaimTypeRaw.Replace($"${{{clientIdKey}}}", clientId);
@@ -137,7 +139,7 @@ namespace MultitenantBlazorApp.Server
       Options.TokenValidationParameters.ValidAudience = audience;
       Options.TokenValidationParameters.ValidAudiences = new List<string>() { audience };
       Options.TokenValidationParameters.ValidateIssuer = true;
-      
+      Options.TokenValidationParameters.ValidateAudience = false;
       return Options;
     }
 
