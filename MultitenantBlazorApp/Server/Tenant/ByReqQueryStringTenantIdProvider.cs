@@ -5,6 +5,7 @@ using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Http.Extensions;
 using MultitenantBlazorApp.Client.Helpers;
 using MultitenantBlazorApp.Client.Tenant;
+using MultitenantBlazorApp.Shared;
 
 namespace MultitenantBlazorApp.Server
 {

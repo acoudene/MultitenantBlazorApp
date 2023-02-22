@@ -3,6 +3,7 @@
 
 using CommunityToolkit.Diagnostics;
 using MultitenantBlazorApp.Client.Tenant;
+using MultitenantBlazorApp.Shared;
 using System.Security.Claims;
 
 namespace MultitenantBlazorApp.Server

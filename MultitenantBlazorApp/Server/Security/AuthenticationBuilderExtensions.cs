@@ -3,17 +3,13 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 
-namespace MultitenantBlazorApp.Server
+namespace MultitenantBlazorApp.Server;
+
+public static class AuthenticationBuilderExtensions
 {
-  public static class AuthenticationBuilderExtensions
+  public static AuthenticationBuilder AddByTenantJwtBearer(this AuthenticationBuilder builder, string authenticationScheme, Action<JwtBearerOptions>? configureOptions = null)
   {
-    public static AuthenticationBuilder AddByTenantJwtBearer(this AuthenticationBuilder builder, string authenticationScheme, Action<JwtBearerOptions>? configureOptions = null)
-    {
-      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<JwtBearerOptions>, JwtBearerPostConfigureOptions>());
-      return builder.AddScheme<JwtBearerOptions, ByTenantJwtBearerHandler>(authenticationScheme, displayName: null, configureOptions);
-    }
+    return builder.AddScheme<JwtBearerOptions, ByTenantJwtBearerHandler>(authenticationScheme, displayName: null, configureOptions);
   }
 }
