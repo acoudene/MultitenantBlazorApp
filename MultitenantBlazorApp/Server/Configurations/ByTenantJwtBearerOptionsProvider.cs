@@ -97,9 +97,9 @@ public class ByTenantJwtBearerOptionsProvider : IJwtBearerOptionsProvider
 
     string tenantConfigKey = GetTenantConfigKey(tenantId);
     var tenantConfigSection = _configuration.GetSection(tenantConfigKey);
-    if (tenantConfigSection == null)
+    if (tenantConfigSection == null || ! tenantConfigSection.Exists())
     {
-      tenantConfigSection = _configuration.GetSection(TemplateConfigKey);
+      tenantConfigSection = _configuration.GetSection(GetTenantConfigKey(TemplateConfigKey));
       if (tenantConfigSection == null)
         throw new InvalidOperationException("Missing template config for all tenants");
     }
