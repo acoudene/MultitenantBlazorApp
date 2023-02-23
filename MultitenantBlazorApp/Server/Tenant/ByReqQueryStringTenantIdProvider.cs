@@ -5,13 +5,14 @@ using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Http.Extensions;
 using MultitenantBlazorApp.Client.Helpers;
 using MultitenantBlazorApp.Client.Tenant;
+using MultitenantBlazorApp.Shared.Tenant;
 
 namespace MultitenantBlazorApp.Server
 {
-  /// <summary>
-  /// Stateless provider to manager tenant id by query string
-  /// </summary>
-  public class ByReqQueryStringTenantIdProvider : IStatefulTenantIdProvider
+    /// <summary>
+    /// Stateless provider to manager tenant id by query string
+    /// </summary>
+    public class ByReqQueryStringTenantIdProvider : IStatefulTenantIdProvider
   {
     private const string TenantIdKey = "Tenant";
     private readonly IHttpContextAccessor _httpContextAccessor;

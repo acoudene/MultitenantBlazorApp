@@ -4,8 +4,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using MultitenantBlazorApp.Client.Tenant;
 using MultitenantBlazorApp.Server;
+using MultitenantBlazorApp.Server.Configurations;
+using MultitenantBlazorApp.Shared.Tenant;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddScoped<UserValidationJwtBearerEvents>();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
+
+builder.Services.AddTransient<IJwtBearerOptionsProvider, ByTenantJwtBearerOptionsProvider>();
 
 var app = builder.Build();
 

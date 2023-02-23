@@ -3,6 +3,7 @@
 
 using MultitenantBlazorApp.Client.Helpers;
 using Microsoft.AspNetCore.Components;
+using MultitenantBlazorApp.Shared.Tenant;
 
 namespace MultitenantBlazorApp.Client.Tenant
 {
