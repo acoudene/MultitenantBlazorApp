@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MultitenantBlazorApp.Client;
 using MultitenantBlazorApp.Client.Configurations;
 using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared;
+using MultitenantBlazorApp.Shared.Tenant;
 
 var host = default(WebAssemblyHost);
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

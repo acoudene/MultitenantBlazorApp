@@ -3,7 +3,8 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using MultitenantBlazorApp.Shared;
+using MultitenantBlazorApp.Shared.Template;
+using MultitenantBlazorApp.Shared.Tenant;
 
 namespace MultitenantBlazorApp.Client.Configurations;
 
@@ -87,7 +88,7 @@ public class ByTenantOidcProviderOptionsProvider : IOidcProviderOptionsProvider
 
     providerOptions.Authority = authority;
     providerOptions.ClientId = clientId;
-    providerOptions.ResponseType= responseType;
+    providerOptions.ResponseType = responseType;
     userOptions.RoleClaim = roleClaimTemplate;
   }
 }

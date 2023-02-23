@@ -3,7 +3,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Authentication;
-using MultitenantBlazorApp.Client.Tenant;
+using MultitenantBlazorApp.Shared.Tenant;
 using System.Security.Claims;
 
 namespace MultitenantBlazorApp.Server

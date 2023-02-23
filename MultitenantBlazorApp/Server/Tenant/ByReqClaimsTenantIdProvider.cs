@@ -3,15 +3,15 @@
 
 using CommunityToolkit.Diagnostics;
 using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared;
+using MultitenantBlazorApp.Shared.Tenant;
 using System.Security.Claims;
 
 namespace MultitenantBlazorApp.Server
 {
-  /// <summary>
-  /// Stateless provider to manager tenant id by subdomain
-  /// </summary>
-  public class ByReqClaimsTenantIdProvider : IStatefulTenantIdProvider
+    /// <summary>
+    /// Stateless provider to manager tenant id by subdomain
+    /// </summary>
+    public class ByReqClaimsTenantIdProvider : IStatefulTenantIdProvider
   {
     private const string TenantIdKey = "Tenant";
     private readonly IHttpContextAccessor _httpContextAccessor;

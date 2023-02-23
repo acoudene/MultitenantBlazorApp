@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using MultitenantBlazorApp.Shared;
+using MultitenantBlazorApp.Shared.Template;
+using MultitenantBlazorApp.Shared.Tenant;
 
 namespace MultitenantBlazorApp.Server.Configurations;
 

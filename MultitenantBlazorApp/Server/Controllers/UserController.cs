@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared;
+using MultitenantBlazorApp.Shared.Tenant;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace MultitenantBlazorApp.Server.Controllers
 {
-  [Authorize]
+    [Authorize]
   [ApiController]
   [Route("[controller]")]
   public class UserController : ControllerBase
