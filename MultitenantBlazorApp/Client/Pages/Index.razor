@@ -6,6 +6,18 @@
 
 Welcome to your new app.
 
+<AuthorizeView>
+  <Authorized>
+    @foreach (var claims in context.User.Claims)
+    {
+      <tr>
+        <td>Type: @claims.Type</td>
+        <td>Value: @claims.Value</td>        
+      </tr>
+    }
+  </Authorized>
+</AuthorizeView>
 
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
