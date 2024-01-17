@@ -1,5 +1,6 @@
 ﻿// Changelogs Date  | Author                | Description
 // 2023-02-22       | Anthony Coudène (ACE) | Creation
+// 2024-01-17       | Anthony Coudène (ACE) | Adaptations to .Net 8
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -69,9 +70,12 @@ public class ByTenantJwtBearerOptionsProvider : IJwtBearerOptionsProvider
       if (metadataAddress == null)
         throw new InvalidOperationException($"Missing metadata address for {authority}");
 
-      // For debug purpose only:        
-      //var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(metadataAddress, new OpenIdConnectConfigurationRetriever(), new HttpDocumentRetriever() { RequireHttps = false });                
+#if DEBUG
+      // For debug purpose only: 
+      var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(metadataAddress, new OpenIdConnectConfigurationRetriever(), new HttpDocumentRetriever() { RequireHttps = false });
+#else
       var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(metadataAddress, new OpenIdConnectConfigurationRetriever());
+#endif
       var authorityConfiguration = await configurationManager.GetConfigurationAsync(cancellationToken);
       return authorityConfiguration;
     });
