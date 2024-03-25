@@ -4,10 +4,11 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Multitenant.Configuration;
+using Multitenant.Configuration.WebAssembly.Configurations;
+using Multitenant.Configuration.WebAssembly.Tenant;
+using Multitenant.Security.WebAssembly;
 using MultitenantBlazorApp.Client;
-using MultitenantBlazorApp.Client.Configurations;
-using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared.Tenant;
 
 var host = default(WebAssemblyHost);
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -33,7 +34,7 @@ builder.Services
       if (oidcProviderOptionsProvider == null)
         throw new InvalidOperationException($"Missing {nameof(IOidcProviderOptionsProvider)} implementation");
 
-      oidcProviderOptionsProvider.ConfigureOptions(options.ProviderOptions, options.UserOptions);       
+      oidcProviderOptionsProvider.ConfigureOptions(options.ProviderOptions, options.UserOptions);
     })
     .AddAccountClaimsPrincipalFactory<MyClaimsPrincipalFactory>();
 

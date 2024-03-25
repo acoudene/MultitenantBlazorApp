@@ -4,9 +4,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using MultitenantBlazorApp.Server;
-using MultitenantBlazorApp.Server.Configurations;
-using MultitenantBlazorApp.Shared.Tenant;
+using Multitenant.Configuration;
+using Multitenant.Configuration.AspNetCore;
+using Multitenant.Security.AspNetCore;
+using Multitenant.Security.AspNetCore.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
