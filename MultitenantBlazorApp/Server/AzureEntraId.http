@@ -1,3 +1,8 @@
+# Prerequisites:
+# - Disable MFA on EntraID : Go to EntraID > Properties > Disable Default security
+# - Add API autorizations on Enterprise Application with Admin consent on: 
+#   - Microsoft Graph > Delegated autorizations > user.read openid profile offline_access
+
 @AzureEntraIdBaseUrl = https://login.microsoftonline.com
 @TenantId = <TenantId>
 
