@@ -4,10 +4,11 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Multitenant.Configuration;
+using Multitenant.Configuration.WebAssembly.Configurations;
+using Multitenant.Configuration.WebAssembly.Tenant;
+using Multitenant.Security.WebAssembly;
 using MultitenantBlazorApp.Client;
-using MultitenantBlazorApp.Client.Configurations;
-using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared.Tenant;
 
 var host = default(WebAssemblyHost);
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -20,6 +21,10 @@ builder.Services
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Authenticated"));
 
+builder.Services
+    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri($"https://mylocaltenant.localhost.com:7269/weatherforecast/"))
+    // Http Message handler to integrate access token to http headers
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<IStatefulTenantIdProvider, ByNavSubdomainTenantIdProvider>();
 builder.Services.AddScoped<IOidcProviderOptionsProvider, ByTenantOidcProviderOptionsProvider>();
@@ -33,7 +38,7 @@ builder.Services
       if (oidcProviderOptionsProvider == null)
         throw new InvalidOperationException($"Missing {nameof(IOidcProviderOptionsProvider)} implementation");
 
-      oidcProviderOptionsProvider.ConfigureOptions(options.ProviderOptions, options.UserOptions);       
+      oidcProviderOptionsProvider.ConfigureOptions(options.ProviderOptions, options.UserOptions);
     })
     .AddAccountClaimsPrincipalFactory<MyClaimsPrincipalFactory>();
 

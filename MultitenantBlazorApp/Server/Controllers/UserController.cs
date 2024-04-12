@@ -3,15 +3,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using MultitenantBlazorApp.Client.Tenant;
-using MultitenantBlazorApp.Shared.Tenant;
+using Multitenant.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 
 namespace MultitenantBlazorApp.Server.Controllers
 {
-    [Authorize]
+  [Authorize]
   [ApiController]
   [Route("[controller]")]
   public class UserController : ControllerBase
@@ -23,14 +21,14 @@ namespace MultitenantBlazorApp.Server.Controllers
     private readonly IStatefulTenantIdProvider _tenantIdProvider;
 
     public UserController(
-      ILogger<UserController> logger, 
+      ILogger<UserController> logger,
       IClaimsTransformation claimsTransformation,
       IConfiguration configuration,
       IStatefulTenantIdProvider tenantIdProvider)
     {
       Guard.IsNotNull(logger);
       Guard.IsNotNull(claimsTransformation);
-      Guard.IsNotNull(configuration); 
+      Guard.IsNotNull(configuration);
       Guard.IsNotNull(tenantIdProvider);
 
       _logger = logger;
@@ -44,12 +42,12 @@ namespace MultitenantBlazorApp.Server.Controllers
     public async Task<ActionResult> CreateUserAsync()
     {
       if (User == null) throw new InvalidOperationException("Missing principal");
-      
+
       var newPrincipal = await _claimsTransformation.TransformAsync(User);
       if (newPrincipal == null) throw new InvalidOperationException("No principal after transformation");
-      
+
       var authClaims = newPrincipal.Claims;
-      
+
       #region Création du token Jwt
       string? secret = _configuration["JWT:Secret"];
       if (string.IsNullOrWhiteSpace(secret)) throw new InvalidOperationException("Missing JWT secret");

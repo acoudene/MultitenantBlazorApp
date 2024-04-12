@@ -1,6 +1,6 @@
 ﻿@page "/fetchdata"
 @using MultitenantBlazorApp.Shared
-@inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -38,10 +38,11 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+  private WeatherForecast[]? forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-    }
+  protected override async Task OnInitializedAsync()
+  {
+    using var httpClient = HttpClientFactory.CreateClient("weatherforecast");
+    forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(string.Empty);
+  }
 }
