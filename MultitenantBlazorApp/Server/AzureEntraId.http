@@ -21,3 +21,9 @@ grant_type=password
 
 POST {{AzureEntraIdBaseUrl}}/{{TenantId}}/oauth2/v2.0/logout
 Content-Type: application/x-www-form-urlencoded
+
+###
+
+GET https://jwt.io
+
+###
