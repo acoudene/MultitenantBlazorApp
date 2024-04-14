@@ -45,10 +45,10 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseCors(allowSpecificOrigins);
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors(allowSpecificOrigins);
 
 app.MapControllers();
 

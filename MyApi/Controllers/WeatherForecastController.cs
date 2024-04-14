@@ -24,7 +24,6 @@ public class WeatherForecastController : ControllerBase
   }
 
   [HttpGet]
-  [EnableCors("frontend")]
   public IEnumerable<WeatherForecast> Get()
   {
     return Enumerable.Range(1, 5).Select(index => new WeatherForecast

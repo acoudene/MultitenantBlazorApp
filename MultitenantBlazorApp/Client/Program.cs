@@ -24,8 +24,13 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 builder.Services
     .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri($"https://mylocaltenant.localhost.com:7269/weatherforecast/"))
     // Http Message handler to integrate access token to http headers
-    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+    .AddHttpMessageHandler(x =>
+    {
+      var handler = x.GetRequiredService<AuthorizationMessageHandler>()
+          .ConfigureHandler(new[] { "https://mylocaltenant.localhost.com:7269" });
 
+      return handler;
+    });
 builder.Services.AddScoped<IStatefulTenantIdProvider, ByNavSubdomainTenantIdProvider>();
 builder.Services.AddScoped<IOidcProviderOptionsProvider, ByTenantOidcProviderOptionsProvider>();
 
