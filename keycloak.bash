@@ -1,5 +1,9 @@
 #!/bin/bash
 # See: https://medium.com/@rishabhsvats/understanding-authorization-code-flow-3946d746407
+# Prerequesite: 
+# - Go installer: sudo apt-get update && sudo apt-get -y install golang-go 
+# - Pup parser: go install github.com/ericchiang/pup@latest ('go env' to get path)
+# - jq command: sudo apt-get install jq
 
 init()
 {
@@ -28,7 +32,7 @@ AUTHENTICATE_URL=$(curl -sSL  --get --cookie "$COOKIE" --cookie-jar "$COOKIE" \
   --data-urlencode "redirect_uri=${REDIRECT_URL}" \
   --data-urlencode "scope=openid" \
   --data-urlencode "response_type=code" \
-  "$KEYCLOAK_URL/realms/$REALM/protocol/openid-connect/auth" | pup "form#kc-form-login attr{action}")
+  "$KEYCLOAK_URL/realms/$REALM/protocol/openid-connect/auth" | ~/go/bin/pup "form#kc-form-login attr{action}")
 
 
 
