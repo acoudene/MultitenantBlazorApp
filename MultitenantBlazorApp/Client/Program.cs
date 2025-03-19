@@ -21,16 +21,21 @@ builder.Services
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Authenticated"));
 
-builder.Services
-    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri($"https://mylocaltenant.localhost.com:7269/weatherforecast/"))
-    // Http Message handler to integrate access token to http headers
-    .AddHttpMessageHandler(x =>
-    {
-      var handler = x.GetRequiredService<AuthorizationMessageHandler>()
-          .ConfigureHandler(new[] { "https://mylocaltenant.localhost.com:7269" });
+//builder.Services
+//    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri($"https://mylocaltenant.localhost.com:7269/weatherforecast/"))
+//    // Http Message handler to integrate access token to http headers
+//    .AddHttpMessageHandler(x =>
+//    {
+//      var handler = x.GetRequiredService<AuthorizationMessageHandler>()
+//          .ConfigureHandler(new[] { "https://mylocaltenant.localhost.com:7269" });
 
-      return handler;
-    });
+//      return handler;
+//    });
+
+builder.Services
+    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "weatherforecast"))
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+
 builder.Services.AddScoped<IStatefulTenantIdProvider, ByNavSubdomainTenantIdProvider>();
 builder.Services.AddScoped<IOidcProviderOptionsProvider, ByTenantOidcProviderOptionsProvider>();
 
