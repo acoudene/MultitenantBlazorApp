@@ -4,8 +4,11 @@
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+var username = builder.AddParameter("username", "admin");
+var password = builder.AddParameter("password", "admin", secret: true);
+
 /// https://learn.microsoft.com/en-us/dotnet/aspire/authentication/keycloak-integration?tabs=dotnet-cli
-var keycloak = builder.AddKeycloak("keycloak", 9090)
+var keycloak = builder.AddKeycloak("keycloak", 9090, username, password)
   .WithRealmImport("./Realms");
 
 /// https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/launch-profiles
