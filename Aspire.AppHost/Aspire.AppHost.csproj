@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>320fbc77-438b-45cb-b89c-097806b4f716</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Realms\Keycloak-mytenant.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.Keycloak" Version="9.1.0-preview.1.25121.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultitenantBlazorApp\Server\MultitenantBlazorApp.Server.csproj" />
+    <ProjectReference Include="..\MyApi\MyApi.csproj" />
+  </ItemGroup>
+
+</Project>

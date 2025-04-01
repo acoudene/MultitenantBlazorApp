@@ -5,17 +5,17 @@
 # - If assertion are added don't forget to "acceptMappedClaims": true to manifest
 
 @AzureEntraIdBaseUrl = https://login.microsoftonline.com
-@TenantId = <TenantId>
+@TenantId = c6d12ee2-b2b4-4f39-8f3b-5b162a0b1191
 
 POST {{AzureEntraIdBaseUrl}}/{{TenantId}}/oauth2/v2.0/token
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=password
-&client_id=<Client_Id>
-&client_secret=<Client_Secret>
+&client_id=12cfc94d-954b-443f-b472-39c82d4215dc
+&client_secret=2gN8Q~IisNopWfek1idrguYfBrLxfvrfcW92ydrl
 &scope=user.read openid profile offline_access
-&username=<Email>
-&password=<Password>
+&username=anthony.coudene@technidata-web.com
+&password=TD@dmin12345678
 
 ###
 

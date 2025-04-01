@@ -1,6 +1,6 @@
 {
-  "id": "MyRealm",
-  "realm": "MyRealm",
+  "id": "mytenant",
+  "realm": "mytenant",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -45,11 +45,11 @@
   "failureFactor": 30,
   "defaultRole": {
     "id": "f42b2810-90ee-44bf-a60a-89e7d7f84ffa",
-    "name": "default-roles-myrealm",
+    "name": "default-roles-mytenant",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
-    "containerId": "MyRealm"
+    "containerId": "mytenant"
   },
   "requiredCredentials": [
     "password"
@@ -112,13 +112,13 @@
       "clientId": "account",
       "name": "${client_account}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/MyRealm/account/",
+      "baseUrl": "/realms/mytenant/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/MyRealm/account/*"
+        "/realms/mytenant/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -153,13 +153,13 @@
       "clientId": "account-console",
       "name": "${client_account-console}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/MyRealm/account/",
+      "baseUrl": "/realms/mytenant/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/MyRealm/account/*"
+        "/realms/mytenant/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -356,13 +356,13 @@
       "clientId": "security-admin-console",
       "name": "${client_security-admin-console}",
       "rootUrl": "${authAdminUrl}",
-      "baseUrl": "/admin/MyRealm/console/",
+      "baseUrl": "/admin/mytenant/console/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/admin/MyRealm/console/*"
+        "/admin/mytenant/console/*"
       ],
       "webOrigins": [
         "+"
@@ -415,16 +415,16 @@
     },
     {
       "id": "a0f086a1-875c-4035-853e-eb2382578fc9",
-      "clientId": "tenant01",
+      "clientId": "multitenantBlazorapp",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "https://tenant01.localhost.com:5002/*"
+        "https://mytenant.localhost.com:5002/*"
       ],
       "webOrigins": [
-        "https://tenant01.localhost.com:5002"
+        "https://mytenant.localhost.com:5002"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -471,7 +471,7 @@
           "protocolMapper": "oidc-hardcoded-claim-mapper",
           "consentRequired": false,
           "config": {
-            "claim.value": "tenant01",
+            "claim.value": "mytenant",
             "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
