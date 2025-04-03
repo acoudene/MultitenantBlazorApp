@@ -1,0 +1,22 @@
+# Prerequisites:
+# - Disable MFA on EntraID : Go to EntraID > Properties > Disable Default security
+# - Add API autorizations on Enterprise Application with Admin consent on: 
+#   - Microsoft Graph > Delegated autorizations > user.read openid profile offline_access
+# - If assertion are added don't forget to "acceptMappedClaims": true to manifest
+
+@BaseAddress = http://localhost:9090
+@TenantId = mytenant
+@ClientId = multitenantBlazorapp
+@UserName = anthony
+@Password = a
+
+POST {{BaseAddress}}/realms/{{TenantId}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&ClientId={{ClientId}}&username={{UserName}}&password={{Password}}
+
+###
+
+GET https://jwt.io
+
+###
