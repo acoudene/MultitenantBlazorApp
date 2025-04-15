@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{02
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{671B5798-2DD9-4277-9623-173D1E1967C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multitenant.Security.AspNetCore.Tests", "Multitenant.Security.AspNetCore.Tests\Multitenant.Security.AspNetCore.Tests.csproj", "{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{6ECFB554-BD28-43ED-A7F7-18DECAD225E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ECFB554-BD28-43ED-A7F7-18DECAD225E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ECFB554-BD28-43ED-A7F7-18DECAD225E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{90896E2B-498C-4E2F-959A-042C59D5B20D} = {CDA2F0B4-900B-411C-92C2-3D885950BFFB}
 		{3B11C33D-C9A2-4123-A2E0-7E4A96B76FF3} = {CDA2F0B4-900B-411C-92C2-3D885950BFFB}
 		{E2071CE1-B74E-4B92-B62C-4475A6CC69C7} = {CDA2F0B4-900B-411C-92C2-3D885950BFFB}
+		{BF12FE87-ECE3-4E13-AD6E-1E18178FBEB0} = {CDA2F0B4-900B-411C-92C2-3D885950BFFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {020106E4-5BF6-46A5-B565-414862C82041}
