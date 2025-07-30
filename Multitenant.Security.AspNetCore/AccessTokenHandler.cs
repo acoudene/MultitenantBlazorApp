@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -29,7 +30,7 @@ public class AccessTokenHandler : DelegatingHandler
       };
     }
 
-    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+    request.Headers.Authorization = new AuthenticationHeaderValue(IdentityConstants.BearerScheme, accessToken);
     return await base.SendAsync(request, cancellationToken);
   }
 }
