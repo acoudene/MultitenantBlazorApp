@@ -30,7 +30,17 @@ builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
 
 builder.Services.AddTransient<IJwtBearerOptionsProvider, ByTenantJwtBearerOptionsProvider>();
 
-builder.Services.AddHttpClient("myapi", client => client.BaseAddress = new Uri(@"http+https://myapi"));
+
+builder.Services.AddTransient<AccessTokenHandler>();
+builder.Services
+  .AddHttpClient("myapi", client => client.BaseAddress = new Uri(new Uri(@"https://mytenant.localhost.com:7269/"), "weatherforecast/"))
+  .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+  {
+    ServerCertificateCustomValidationCallback =
+            (message, cert, chain, errors) => true
+  })
+  .AddHttpMessageHandler<AccessTokenHandler>();
+
 
 var app = builder.Build();
 
