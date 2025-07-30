@@ -30,6 +30,10 @@ builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
 
 builder.Services.AddTransient<IJwtBearerOptionsProvider, ByTenantJwtBearerOptionsProvider>();
 
+// To uncomment if you want to use the LoginState and TokenExpiryAuthStateProvider
+//builder.Services.AddSingleton<LoginState>();
+//builder.Services.AddScoped<AuthenticationStateProvider, TokenExpiryAuthStateProvider>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

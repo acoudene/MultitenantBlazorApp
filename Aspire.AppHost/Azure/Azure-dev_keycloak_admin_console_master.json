@@ -1,0 +1,78 @@
+{
+	"id": "eae97dae-295a-45f3-81dd-fff5c5bef294",
+	"acceptMappedClaims": true,
+	"accessTokenAcceptedVersion": null,
+	"addIns": [],
+	"allowPublicClient": null,
+	"appId": "6975130a-a97e-48b8-a282-fc2383e08846",
+	"appRoles": [],
+	"oauth2AllowUrlPathMatching": false,
+	"createdDateTime": "2025-05-20T13:17:08Z",
+	"description": null,
+	"certification": null,
+	"disabledByMicrosoftStatus": null,
+	"groupMembershipClaims": null,
+	"identifierUris": [],
+	"informationalUrls": {
+		"termsOfService": null,
+		"support": null,
+		"privacy": null,
+		"marketing": null
+	},
+	"keyCredentials": [],
+	"knownClientApplications": [],
+	"logoUrl": null,
+	"logoutUrl": null,
+	"name": "dev_keycloak_admin_console_master",
+	"notes": null,
+	"oauth2AllowIdTokenImplicitFlow": false,
+	"oauth2AllowImplicitFlow": false,
+	"oauth2Permissions": [],
+	"oauth2RequirePostResponse": false,
+	"optionalClaims": null,
+	"orgRestrictions": [],
+	"parentalControlSettings": {
+		"countriesBlockedForMinors": [],
+		"legalAgeGroupRule": "Allow"
+	},
+	"passwordCredentials": [
+		{
+			"customKeyIdentifier": null,
+			"endDate": "2027-05-20T13:27:43.319Z",
+			"keyId": "05f20baf-fd1a-47db-849c-e558124ce1ef",
+			"startDate": "2025-05-20T13:27:43.319Z",
+			"value": null,
+			"createdOn": "2025-05-20T13:27:52.2391332Z",
+			"hint": "pX7",
+			"displayName": "MySecret"
+		}
+	],
+	"preAuthorizedApplications": [],
+	"publisherDomain": "ace4may2025.onmicrosoft.com",
+	"replyUrlsWithType": [
+		{
+			"url": "http://localhost:9090/admin/master/console/",
+			"type": "Web"
+		},
+		{
+			"url": "http://localhost:9090/realms/master/broker/oidc/endpoint",
+			"type": "Web"
+		}
+	],
+	"requiredResourceAccess": [
+		{
+			"resourceAppId": "00000003-0000-0000-c000-000000000000",
+			"resourceAccess": [
+				{
+					"id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+					"type": "Scope"
+				}
+			]
+		}
+	],
+	"samlMetadataUrl": null,
+	"signInUrl": null,
+	"signInAudience": "AzureADMyOrg",
+	"tags": [],
+	"tokenEncryptionKeyId": null
+}
