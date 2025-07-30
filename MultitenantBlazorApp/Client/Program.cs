@@ -33,7 +33,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 //    });
 
 builder.Services
-    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "weatherforecast"))
+    .AddHttpClient("weatherforecast", client => client.BaseAddress = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "weatherforecast/"))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<IStatefulTenantIdProvider, ByNavSubdomainTenantIdProvider>();

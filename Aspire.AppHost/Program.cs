@@ -12,7 +12,8 @@ var password = builder.AddParameter("password", "admin", secret: true);
 /// Integrate Keycloak for authentication
 /// Documentation: https://learn.microsoft.com/en-us/dotnet/aspire/authentication/keycloak-integration?tabs=dotnet-cli
 var keycloak = builder.AddKeycloak("keycloak", 9090, username, password)
-  .WithRealmImport("./Realms");
+  .WithRealmImport("./Realms")
+  .WithLifetime(ContainerLifetime.Persistent); // Configure Keycloak with a persistent lifetime, useful to avoid long startup times on each run
 
 /// Add and configure the Multitenant Blazor App server project
 /// Documentation: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/launch-profiles

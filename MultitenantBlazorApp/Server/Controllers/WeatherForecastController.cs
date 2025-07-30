@@ -15,10 +15,14 @@ namespace MultitenantBlazorApp.Server.Controllers
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(
+      ILogger<WeatherForecastController> logger,
+      IHttpClientFactory httpClientFactory)
     {
-      _logger = logger;
+      _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+      _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
     }
 
     [HttpGet]
@@ -36,6 +40,18 @@ namespace MultitenantBlazorApp.Server.Controllers
 
     [HttpGet("secured")]
     public IEnumerable<WeatherForecast> GetSecured()
+    {
+      return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+      {
+        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+        TemperatureC = Random.Shared.Next(-20, 55),
+        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+      })
+      .ToArray();
+    }
+
+    [HttpGet("ToSecuredApi")]
+    public IEnumerable<WeatherForecast> GetToSecuredApi()
     {
       return Enumerable.Range(1, 5).Select(index => new WeatherForecast
       {

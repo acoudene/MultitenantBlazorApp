@@ -1938,5 +1938,22 @@
   },
   "clientPolicies": {
     "policies": []
-  }
+  },
+  "users": [
+    {
+      "username": "anthony",
+      "enabled": true,
+      "emailVerified": false,
+      "firstName": "Anthony",
+      "lastName": "COUDENE",
+      "email": "anthony.coudene@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "anthony"
+        }
+      ]
+    }
+  ]
+
 }

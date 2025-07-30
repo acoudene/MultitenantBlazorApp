@@ -30,6 +30,8 @@ builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
 
 builder.Services.AddTransient<IJwtBearerOptionsProvider, ByTenantJwtBearerOptionsProvider>();
 
+builder.Services.AddHttpClient("myapi", client => client.BaseAddress = new Uri(@"http+https://myapi"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
