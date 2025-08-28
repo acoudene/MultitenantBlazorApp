@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
   options.AddPolicy(name: allowSpecificOrigins,
                   policy =>
                   {
-                    policy.WithOrigins("https://mylocaltenant.localhost.com:5002")
+                    policy.WithOrigins("https://mytenant.localhost.com:5002")
                     .AllowAnyMethod() // fix error : has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
                     .AllowAnyHeader();
                   });

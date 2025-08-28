@@ -30,7 +30,7 @@ public class AccessTokenHandler : DelegatingHandler
       };
     }
 
-    request.Headers.Authorization = new AuthenticationHeaderValue(IdentityConstants.BearerScheme, accessToken);
+    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken); // Don't use IdentityConstants.BearerScheme here (="Identity.Bearer"), it is "Bearer" anyway
     return await base.SendAsync(request, cancellationToken);
   }
 }
