@@ -13,6 +13,17 @@
 @Username = Username@microsoft.com 
 @Password = password
 
+# Curl
+#
+# curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+# -d "client_id=<CLIENT_ID>&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&client_secret=<CLIENT_SECRET>&grant_type=client_credentials" \
+# "https://login.microsoftonline.com/<TENANT_ID>/oauth2/v2.0/token"
+#
+# curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+# -d "grant_type=password&client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&scope=<SCOPE>&username=<USERNAME>&password=<PASSWORD>" \
+# "https://login.microsoftonline.com/<TENANT_ID>/oauth2/v2.0/token"
+
+
 POST {{AzureEntraIdBaseUrl}}/{{TenantId}}/oauth2/v2.0/token
 Content-Type: application/x-www-form-urlencoded
 
@@ -33,3 +44,4 @@ Content-Type: application/x-www-form-urlencoded
 GET https://jwt.io
 
 ###
+

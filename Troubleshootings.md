@@ -102,3 +102,13 @@ Architecture :
 - [ ] Utiliser des **group IDs** pour le contrôle d’accès
 - [ ] Activer les logs d’audit dans Keycloak
 - [ ] Automatiser les tests d’authentification pour chaque nouveau tenant
+
+---
+
+# ✅ Claims à valider côté API :
+- aud : Doit correspondre à l’ID de votre API (client ID ou URI).
+- iss : Doit être l’URL du tenant Azure Entra ID.
+- exp / nbf / iat : Dates d’expiration et de validité.
+- scp / roles : Scopes ou rôles autorisés.
+- tid / oid / sub : Identifiants du tenant et de l’utilisateur.
+- azp / appid : Identifiant de l’application cliente.
