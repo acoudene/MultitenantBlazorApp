@@ -12,6 +12,7 @@ var password = builder.AddParameter("password", "admin", secret: true);
 /// Integrate Keycloak for authentication
 /// Documentation: https://learn.microsoft.com/en-us/dotnet/aspire/authentication/keycloak-integration?tabs=dotnet-cli
 var keycloak = builder.AddKeycloak("keycloak", 9090, username, password)
+  .WithArgs("--metrics-enabled=true", "--event-metrics-user-enabled=true", "--event-metrics-user-events=login,logout", "--event-metrics-user-tags=realm,idp,clientId") // Enable metrics for monitoring
   .WithRealmImport("./Realms")
   .WithLifetime(ContainerLifetime.Persistent); // Configure Keycloak with a persistent lifetime, useful to avoid long startup times on each run
 

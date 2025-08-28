@@ -8,7 +8,53 @@
 @TenantId = mytenant
 @ClientId = multitenantBlazorapp
 @UserName = anthony
-@Password = a
+@Password = anthony
+
+# echo -n 'multitenantBlazorapp:vbjtfsoDKWC9T6GMa3aymcRr2YP4UDZa' | base64
+@BasicAuth = bXVsdGl0ZW5hbnRCbGF6b3JhcHA6dmJqdGZzb0RLV0M5VDZHTWEzYXltY1JyMllQNFVEWmE=
+
+@AccessToken = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWVVRkdG9CTk52WTBXc0JERW1FU1UtUjZINTU3NGdZeTBOVmUyZjI0U0YwIn0.eyJleHAiOjE3NTY0MDQ3NjcsImlhdCI6MTc1NjQwNDQ2NywianRpIjoib25ydHJvOmEwOWY3MjRiLTllNWItNDNhYS1hNDdmLTYyNzVjZjgwNTE4NiIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvbXl0ZW5hbnQiLCJzdWIiOiI0MDVjMDdiOS0yZDMzLTRkYTMtYmM0Ny02MmViMmIzNDZhYjciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtdWx0aXRlbmFudEJsYXpvcmFwcCIsInNpZCI6ImEyMjM4ZmJiLWZmNzktNGVhNS1hYjRiLTQxZWEzNWNjNzNkMiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9teXRlbmFudC5sb2NhbGhvc3QuY29tOjUwMDIiXSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiQW50aG9ueSBDT1VERU5FIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYW50aG9ueSIsImdpdmVuX25hbWUiOiJBbnRob255IiwiZmFtaWx5X25hbWUiOiJDT1VERU5FIiwiZW1haWwiOiJhbnRob255LmNvdWRlbmVAZXhhbXBsZS5jb20iLCJ0ZW5hbnQiOiJteXRlbmFudCJ9.mJMoNdjMLmKgsp-livbSMnOWvuBQ6FsPJR22LwEKZlTTunO-kSvYoDlhlLHcjhI1crVY0jy1YHKL9qBDMEPlFftV5TPHKOStFuNBBTWtW9jOmAYB_A_LUgyLpVfS2iliK9rk52_PnMWsfqYYuwhukoAtafSQFqWA7umqqF7VeQbOnwucr2i0HI8N60N1OCDpU04b1pbZtLsmyw_yABYJbGHrhdO0eAC1D3lmEqUe5xKS1EcjntQN3FNDVtW1Y8VyEShgCWMljs3CULyLCAm0CaOyfzV1DC75nYxC_kHZ4gTXt1IH7rDuFL1Jf5-IeDfm_wwfueqmjQSG7cDAtszDOQ
+
+#
+# Version Curl avec client_secret
+#
+# Linux
+#
+# curl -X POST http://localhost:9090/realms/mytenant/protocol/openid-connect/token \
+#   -H "Authorization: Basic bXVsdGl0ZW5hbnRCbGF6b3JhcHA6dmJqdGZzb0RLV0M5VDZHTWEzYXltY1JyMllQNFVEWmE=" \
+#   -H "Content-Type: application/x-www-form-urlencoded" \
+#   -d "grant_type=password" \
+#   -d "ClientId=multitenantBlazorapp" \
+#   -d "username=anthony" \
+#   -d "password=anthony"
+#
+# Windows cmd
+#
+# curl -X POST http://localhost:9090/realms/mytenant/protocol/openid-connect/token -H "Authorization: Basic bXVsdGl0ZW5hbnRCbGF6b3JhcHA6dmJqdGZzb0RLV0M5VDZHTWEzYXltY1JyMllQNFVEWmE=" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password" -d "ClientId=multitenantBlazorapp" -d "username=anthony" -d "password=anthony"
+
+POST {{BaseAddress}}/realms/{{TenantId}}/protocol/openid-connect/token
+Authorization: Basic {{BasicAuth}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&ClientId={{ClientId}}&username={{UserName}}&password={{Password}}
+
+###
+
+#
+# Version Curl sans client_secret
+#
+# Linux
+#
+# curl -X POST http://localhost:9090/realms/mytenant/protocol/openid-connect/token \
+#   -H "Content-Type: application/x-www-form-urlencoded" \
+#   -d "grant_type=password" \
+#   -d "ClientId=multitenantBlazorapp" \
+#   -d "username=anthony" \
+#   -d "password=anthony"
+#
+# Windows cmd
+#
+# curl -X POST http://localhost:9090/realms/mytenant/protocol/openid-connect/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password" -d "ClientId=multitenantBlazorapp" -d "username=anthony" -d "password=anthony"
 
 POST {{BaseAddress}}/realms/{{TenantId}}/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
@@ -18,5 +64,18 @@ grant_type=password&ClientId={{ClientId}}&username={{UserName}}&password={{Passw
 ###
 
 GET https://jwt.io
+
+###
+
+# Instrospection needs:
+# "clientAuthenticatorType": "client-secret"
+# "serviceAccountsEnabled": true
+# "secret": "vbjtfsoDKWC9T6GMa3aymcRr2YP4UDZa"
+
+POST {{BaseAddress}}/realms/{{TenantId}}/protocol/openid-connect/token/introspect
+Authorization: Basic {{BasicAuth}}
+Content-Type: application/x-www-form-urlencoded
+
+token={{AccessToken}}
 
 ###
