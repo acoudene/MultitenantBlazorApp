@@ -1241,6 +1241,52 @@
         "passMaxAge": "false",
         "disableTypeClaimCheck": "false"
       }
+    },
+    {
+      "alias": "saml",
+      "displayName": "",
+      "internalId": "14510561-2a55-4b57-9c84-b4e2fac9573e",
+      "providerId": "saml",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "hideOnLogin": false,
+      "config": {
+        "postBindingLogout": "false",
+        "singleLogoutServiceUrl": "https://login.microsoftonline.com/f38eaa7c-55ab-47d6-a263-6cca7b9adec2/saml2",
+        "postBindingResponse": "true",
+        "backchannelSupported": "false",
+        "caseSensitiveOriginalUsername": "false",
+        "idpEntityId": "https://sts.windows.net/f38eaa7c-55ab-47d6-a263-6cca7b9adec2/",
+        "loginHint": "false",
+        "allowCreate": "true",
+        "enabledFromMetadata": "true",
+        "syncMode": "LEGACY",
+        "authnContextComparisonType": "exact",
+        "singleSignOnServiceUrl": "https://login.microsoftonline.com/f38eaa7c-55ab-47d6-a263-6cca7b9adec2/saml2",
+        "wantAuthnRequestsSigned": "false",
+        "allowedClockSkew": "0",
+        "artifactBindingResponse": "false",
+        "validateSignature": "false",
+        "signingCertificate": "MIIC8DCCAdigAwIBAgIQUpOpqUfIqbxPk9LCm2X2MDANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNTA4MzAxMjAwMTRaFw0yODA4MzAxMjAwMTZaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzDN5PC4ghAQjEGsN2WuUkaYZPSzPMvdITXZlUBCeBAIqPoj25Sig0b2vKbkqqJnG35WGWkEZ0XbHlBCmahAt/lLjxoePaoWxDJLASwxopKQf1PMBuGqvuTe3/FblDMrr9ylD4b6F4KmZpzUt0Y2x+IHStN7xzD1Ao4eACT+89Jp1Ux7iWVQHsDMxWyBj8zDfEW4nZDDNiF0hAusgL5vS7I05353cS+UncgMPUxRNN25n4pXJd+Xe9JOferQ1ixHBQZO1Qus+hJgFnmhJIFmfgIOavR1Aa0r5fhWYAV0IWq8LFNeVfvHxbCBEEAHHfjiaSVETg087E5YLkztBmOyWQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBnAa1BungyqIMoEUTXt4CXALPnxRVsadyuuUyR8bJJtIDRZpqw4pyQsa22WISWh/neTMcOq5D/M8RPQUvmQMNmxpTyQNIJOwcjCWpDcxVExSR+g8mig4DoH0VRcE3kSRxerCywgUAncXpuHqjKCCFQixIWTZPls957KsgG0gOrP0iM/Ii9MaaCs7KcA/PXx9cBIh3lZXckJYaHh50zDsn65FwZXzOn2bnPHDZY4AGiB3TmznFCsmv93XkYGx/t6jT+jM/E4kuVjVm6ayDA4eDHIt/rCKEZ3EvHRa+sbqq9kHD/mhcqkQ+MTc0BiXj24gy6RiYq+dHH64emjx3xemFN",
+        "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
+        "entityId": "http://localhost:9090/realms/mytenant",
+        "signSpMetadata": "false",
+        "wantAssertionsEncrypted": "false",
+        "sendClientIdOnLogout": "false",
+        "wantAssertionsSigned": "false",
+        "metadataDescriptorUrl": "https://login.microsoftonline.com/f38eaa7c-55ab-47d6-a263-6cca7b9adec2/federationmetadata/2007-06/federationmetadata.xml?appid=8e246ac2-0165-4960-b978-b3da236eede6",
+        "sendIdTokenOnLogout": "true",
+        "postBindingAuthnRequest": "true",
+        "forceAuthn": "false",
+        "attributeConsumingServiceIndex": "0",
+        "addExtensionsElementWithKeyInfo": "false",
+        "principalType": "SUBJECT"
+      }
     }
   ],
   "identityProviderMappers": [
@@ -1275,6 +1321,42 @@
         "syncMode": "FORCE",
         "claim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname",
         "user.attribute": "lastName"
+      }
+    },
+    {
+      "id": "e46428f8-ee97-45e2-b2ed-267e34153618",
+      "name": "email",
+      "identityProviderAlias": "saml",
+      "identityProviderMapper": "saml-user-attribute-idp-mapper",
+      "config": {
+        "syncMode": "FORCE",
+        "user.attribute": "email",
+        "attribute.name.format": "ATTRIBUTE_FORMAT_BASIC",
+        "attribute.name": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+      }
+    },
+    {
+      "id": "b54b701d-852e-495c-8f58-2127f34c03f5",
+      "name": "firstName",
+      "identityProviderAlias": "saml",
+      "identityProviderMapper": "saml-user-attribute-idp-mapper",
+      "config": {
+        "syncMode": "FORCE",
+        "user.attribute": "firstName",
+        "attribute.name.format": "ATTRIBUTE_FORMAT_BASIC",
+        "attribute.name": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+      }
+    },
+    {
+      "id": "83ee4ed9-9b8b-4149-82f9-4681bc13bb48",
+      "name": "lastName",
+      "identityProviderAlias": "saml",
+      "identityProviderMapper": "saml-user-attribute-idp-mapper",
+      "config": {
+        "syncMode": "FORCE",
+        "user.attribute": "lastName",
+        "attribute.name.format": "ATTRIBUTE_FORMAT_BASIC",
+        "attribute.name": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
       }
     }
   ],
