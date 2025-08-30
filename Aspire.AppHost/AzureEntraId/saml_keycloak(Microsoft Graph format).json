@@ -1,0 +1,114 @@
+{
+	"id": "9b9856f0-558f-41b3-8dbb-fdf836128279",
+	"deletedDateTime": null,
+	"appId": "8e246ac2-0165-4960-b978-b3da236eede6",
+	"applicationTemplateId": "8adf8e6e-67b2-4cf2-a259-e3dc5476c621",
+	"disabledByMicrosoftStatus": null,
+	"createdDateTime": "2025-08-30T11:57:45Z",
+	"displayName": "saml_keycloak",
+	"description": null,
+	"groupMembershipClaims": null,
+	"identifierUris": [
+		"http://localhost:9090/realms/mytenant"
+	],
+	"isDeviceOnlyAuthSupported": null,
+	"isFallbackPublicClient": false,
+	"nativeAuthenticationApisEnabled": null,
+	"notes": null,
+	"publisherDomain": "ace4may2025.onmicrosoft.com",
+	"serviceManagementReference": null,
+	"signInAudience": "AzureADMyOrg",
+	"tags": [],
+	"tokenEncryptionKeyId": null,
+	"samlMetadataUrl": null,
+	"defaultRedirectUri": "http://localhost:9090/realms/mytenant/broker/saml/endpoint",
+	"certification": null,
+	"optionalClaims": null,
+	"servicePrincipalLockConfiguration": null,
+	"requestSignatureVerification": null,
+	"addIns": [],
+	"api": {
+		"acceptMappedClaims": null,
+		"knownClientApplications": [],
+		"requestedAccessTokenVersion": null,
+		"oauth2PermissionScopes": [
+			{
+				"adminConsentDescription": "Allow the application to access saml_keycloak on behalf of the signed-in user.",
+				"adminConsentDisplayName": "Access saml_keycloak",
+				"id": "8e1d0bd4-c404-4207-afce-ee479d213dd0",
+				"isEnabled": true,
+				"type": "User",
+				"userConsentDescription": "Allow the application to access saml_keycloak on your behalf.",
+				"userConsentDisplayName": "Access saml_keycloak",
+				"value": "user_impersonation"
+			}
+		],
+		"preAuthorizedApplications": []
+	},
+	"appRoles": [
+		{
+			"allowedMemberTypes": [
+				"User"
+			],
+			"description": "User",
+			"displayName": "User",
+			"id": "18d14569-c3bd-439b-9a66-3a2aee01d14f",
+			"isEnabled": true,
+			"origin": "Application",
+			"value": null
+		},
+		{
+			"allowedMemberTypes": [
+				"User"
+			],
+			"description": "msiam_access",
+			"displayName": "msiam_access",
+			"id": "b9632174-c057-4f7e-951b-be3adc52bfe6",
+			"isEnabled": true,
+			"origin": "Application",
+			"value": null
+		}
+	],
+	"info": {
+		"logoUrl": null,
+		"marketingUrl": null,
+		"privacyStatementUrl": null,
+		"supportUrl": null,
+		"termsOfServiceUrl": null
+	},
+	"keyCredentials": [],
+	"parentalControlSettings": {
+		"countriesBlockedForMinors": [],
+		"legalAgeGroupRule": "Allow"
+	},
+	"passwordCredentials": [],
+	"publicClient": {
+		"redirectUris": []
+	},
+	"requiredResourceAccess": [],
+	"verifiedPublisher": {
+		"displayName": null,
+		"verifiedPublisherId": null,
+		"addedDateTime": null
+	},
+	"web": {
+		"homePageUrl": "https://account.activedirectory.windowsazure.com:444/applications/default.aspx?metadata=customappsso|ISV9.1|primary|z",
+		"logoutUrl": null,
+		"redirectUris": [
+			"http://localhost:9090/realms/mytenant/broker/saml/endpoint"
+		],
+		"implicitGrantSettings": {
+			"enableAccessTokenIssuance": false,
+			"enableIdTokenIssuance": true
+		},
+		"redirectUriSettings": [
+			{
+				"uri": "http://localhost:9090/realms/mytenant/broker/saml/endpoint",
+				"index": null
+			}
+		]
+	},
+	"spa": {
+		"redirectUris": []
+	}
+}
