@@ -1,24 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-MyApi-37cd2f70-e014-495c-8a00-ac815e65304b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Dashboard.Sdk.win-x64" Version="9.4.1" />
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.4.1" />
-    <PackageReference Include="Azure.Identity" Version="1.15.0" />
+    <PackageReference Include="Aspire.Dashboard.Sdk.win-x64" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.0" />
+    <PackageReference Include="Azure.Identity" Version="1.17.1" />
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" NoWarn="NU1605" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.3" NoWarn="NU1605" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="3.14.0" />
-    <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.14.0" />
-    <PackageReference Include="System.Formats.Asn1" Version="9.0.8" />
-    <PackageReference Include="System.Text.Json" Version="9.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.1" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="4.2.0" />
   </ItemGroup>
 
   <ItemGroup>
