@@ -12,7 +12,7 @@ var jaeger = builder.AddContainer("jaeger", "jaegertracing/all-in-one")
     .WithEndpoint("http", endpoint => { endpoint.Port = 16686; endpoint.TargetPort = 16686; endpoint.UriScheme = "http"; })     // Interface web Jaeger
     .WithEndpoint("gRPC", endpoint => { endpoint.Port = 4317; endpoint.TargetPort = 4317; endpoint.UriScheme = "http"; })       // OTLP gRPC
     .WithEndpoint("http-oltp", endpoint => { endpoint.Port = 4318; endpoint.TargetPort = 4318; endpoint.UriScheme = "http"; })  // OTLP HTTP
-                                                                                                                                //.WithLifetime(ContainerLifetime.Persistent)
+    .WithLifetime(ContainerLifetime.Persistent)
     ;
 
 // Add parameters for username and password
@@ -33,12 +33,12 @@ var keycloak = builder.AddKeycloak("keycloak", 9090, username, password)
   //,"--log-level=debug" // Enable detailed logging for debugging
   )
   .WithRealmImport("./Realms")
-  //.WithLifetime(ContainerLifetime.Persistent)
+  .WithLifetime(ContainerLifetime.Persistent)
   .WaitFor(jaeger); // Configure Keycloak with a persistent lifetime, useful to avoid long startup times on each run
 
 /// Add and configure the Multitenant Blazor App server project
 /// Documentation: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/launch-profiles
-builder.AddProject<Projects.MultitenantBlazorApp_Server>("multitenantblazorapp-server")
+builder.AddProject<Projects.MultitenantBlazorApp>("multitenantblazorapp")
   .WithEndpoint("https", endpoint => endpoint.IsProxied = false) // Configure HTTPS endpoint
   .WithReference(keycloak) // Reference Keycloak for authentication
   .WaitFor(keycloak); // Ensure Keycloak is ready before starting

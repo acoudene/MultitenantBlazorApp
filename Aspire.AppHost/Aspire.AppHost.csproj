@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MultitenantBlazorApp\Server\MultitenantBlazorApp.Server.csproj" />
+    <ProjectReference Include="..\MultitenantBlazorApp\MultitenantBlazorApp.csproj" />
     <ProjectReference Include="..\MyApi\MyApi.csproj" />
   </ItemGroup>
 
