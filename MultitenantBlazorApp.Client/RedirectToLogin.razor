@@ -1,0 +1,17 @@
+﻿@*
+    // Changelogs Date  | Author                | Description
+    // 2022-06-08       | Anthony Coudène (ACE) | MN-915 Change client architecture to better manage
+    // 2022-07-26       | Anthony Coudène (ACE) | MN-221 Integrate Oidc/OAuth2 protocol as unique authentication mode
+    // 2022-09-26       | Samir & Anthony       | MN-996 Authentication by parameter
+    // 2022-12-14       | Anthony Coudène (ACE) | MN-1198 Adaptation to Full OIDC
+*@
+
+@inject NavigationManager Navigation
+
+@code {
+
+  protected override void OnInitialized()
+  {  
+    Navigation.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
+  }
+}
