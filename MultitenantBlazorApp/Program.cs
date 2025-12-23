@@ -68,7 +68,6 @@ else
 
 app.UseHttpsRedirection();
 
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -76,9 +75,11 @@ app.MapControllers();
 
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseAntiforgery(); // Enable this line to protect against CSRF attacks
-app.MapStaticAssets();
+app.MapStaticAssets()
+  .AllowAnonymous();
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(MultitenantBlazorApp.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(MultitenantBlazorApp.Client._Imports).Assembly)
+    .AllowAnonymous();
 
 app.Run();
